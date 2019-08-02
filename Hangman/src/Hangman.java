@@ -1,13 +1,38 @@
+import java.awt.BorderLayout;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
+import acm.io.IOConsole;
+
 public class Hangman {
+	
+	private HangmanCanvas canvas;
+	
+	public void init() {
+		 canvas = new HangmanCanvas();
+//		 add(canvas);
+	}
+	
+	public static void test(IOConsole console) {
+        console.println("IOConsole class test");
+        int n = console.readInt("Enter an integer: ");
+        console.println("That integer was " + n);
+        double d = console.readDouble("Enter a real number: ");
+        console.println("That number was " + d);
+        boolean b = console.readBoolean("Enter a boolean value: ");
+        console.println("That value was " + b);
+        String line = console.readLine("Enter a line: ");
+        console.println("That line was \"" + line + "\"");
+     }
 	
 	public static void run() throws Exception {
 		Random rand = new Random();
 		int random = rand.nextInt(10);
-		String word = HangmanLexicon.getWord(random);
-//		System.out.println("test purpose: the random word is " + word);
+		HangmanLexicon hl = new HangmanLexicon();
+		String word = hl.getWord(random);
+		System.out.println("test purpose: the random word is " + word);
 		int lives = 8;
 		String guess = "";
 		for(int i = 0; i < word.length(); i++) {
@@ -21,7 +46,9 @@ public class Hangman {
 			System.out.println("Your guess: ");
 			Scanner scan = new Scanner(System.in);
 			String letter = scan.next().trim();
+			// while the input is not a single char
 			while(letter.length() != 1 || !Character.isLetter(letter.charAt(0))) {
+				System.out.println("You could only input one single letter for each time! Try again:");
 				letter = scan.next().trim();
 			}
 			char c = Character.toUpperCase(letter.charAt(0));
@@ -50,6 +77,12 @@ public class Hangman {
 	}
 
 	public static void main(String[] args) throws Exception {
-		run();
+		JFrame frame = new JFrame("IOConsole");
+		IOConsole console = new IOConsole();
+	    frame.getContentPane().add(BorderLayout.CENTER, console);
+	    frame.setSize(500, 300);
+	    frame.show();
+		test(console);
+//		run();
 	}
 }
