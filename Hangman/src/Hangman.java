@@ -5,14 +5,16 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 
 import acm.io.IOConsole;
+import acm.program.ConsoleProgram;
 
-public class Hangman {
+public class Hangman extends ConsoleProgram{
 	
 	private HangmanCanvas canvas;
 	
 	public void init() {
 		 canvas = new HangmanCanvas();
-//		 add(canvas);
+		 add(canvas);
+		 canvas.reset();
 	}
 	
 	public static void test(IOConsole console) {
@@ -27,11 +29,17 @@ public class Hangman {
         console.println("That line was \"" + line + "\"");
      }
 	
-	public static void run() throws Exception {
+	public void run() {
 		Random rand = new Random();
 		int random = rand.nextInt(10);
 		HangmanLexicon hl = new HangmanLexicon();
-		String word = hl.getWord(random);
+		String word = "";
+		try {
+			word = hl.getWord(random);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("test purpose: the random word is " + word);
 		int lives = 8;
 		String guess = "";
@@ -76,13 +84,16 @@ public class Hangman {
 		}
 	}
 
-	public static void main(String[] args) throws Exception {
-		JFrame frame = new JFrame("IOConsole");
-		IOConsole console = new IOConsole();
-	    frame.getContentPane().add(BorderLayout.CENTER, console);
-	    frame.setSize(500, 300);
-	    frame.show();
-		test(console);
-//		run();
+	public static void main(String[] args) {
+//		JFrame frame = new JFrame("IOConsole");
+//		IOConsole console = new IOConsole();
+//	    frame.getContentPane().add(BorderLayout.CENTER, console);
+//	    frame.setSize(500, 300);
+//	    frame.show();
+//		test(console);
+		Hangman hm = new Hangman();
+		hm.init();
+		
+		hm.run();
 	}
 }
