@@ -7,12 +7,12 @@ import javax.swing.JFrame;
 import acm.io.IOConsole;
 import acm.program.ConsoleProgram;
 
-public class Hangman extends ConsoleProgram{
+public class Hangman extends ConsoleProgram {
 	
 	private HangmanCanvas canvas;
 	
 	public void init() {
-		 canvas = new HangmanCanvas();
+		canvas = new HangmanCanvas();
 		 add(canvas);
 		 canvas.reset();
 	}
@@ -41,6 +41,7 @@ public class Hangman extends ConsoleProgram{
 			e.printStackTrace();
 		}
 		System.out.println("test purpose: the random word is " + word);
+		println("test purpose: the random word is " + word);
 		int lives = 8;
 		String guess = "";
 		for(int i = 0; i < word.length(); i++) {
@@ -48,16 +49,22 @@ public class Hangman extends ConsoleProgram{
 		}
 		
 		System.out.println("Welcome to Hangman!");
+		this.println("Welcome to Hangman!");
 		while(lives > 0 && !guess.equals(word)) {
-			System.out.println("The word now looks like this: " + guess);
-			System.out.println("You have " + lives + " guesses left.");
-			System.out.println("Your guess: ");
-			Scanner scan = new Scanner(System.in);
-			String letter = scan.next().trim();
+//			System.out.println("The word now looks like this: " + guess);
+			println("The word now looks like this: " + guess);
+//			System.out.println("You have " + lives + " guesses left.");
+			println("You have " + lives + " guesses left.");
+//			System.out.println("Your guess: ");
+			println("Your guess: ");
+//			Scanner scan = new Scanner(System.in);
+//			String letter = scan.next().trim();
+			String letter = readLine("");
+//			println("letter is: " + letter);
 			// while the input is not a single char
 			while(letter.length() != 1 || !Character.isLetter(letter.charAt(0))) {
 				System.out.println("You could only input one single letter for each time! Try again:");
-				letter = scan.next().trim();
+				letter = readLine("").trim();
 			}
 			char c = Character.toUpperCase(letter.charAt(0));
 			
