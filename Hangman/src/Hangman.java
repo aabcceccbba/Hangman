@@ -63,17 +63,17 @@ public class Hangman extends ConsoleProgram {
 //			println("letter is: " + letter);
 			// while the input is not a single char
 			while(letter.length() != 1 || !Character.isLetter(letter.charAt(0))) {
-				System.out.println("You could only input one single letter for each time! Try again:");
+				println("You could only input one single letter for each time! Try again:");
 				letter = readLine("").trim();
 			}
 			char c = Character.toUpperCase(letter.charAt(0));
 			
 			if(word.indexOf(c) == -1) {
-				System.out.println("There is no " + c + "'s in the word.");
+				println("There is no " + c + "'s in the word.");
 				lives--;
 			}
 			else {
-				System.out.println("That guess is correct.");
+				println("That guess is correct.");
 				for(int i = 0; i < word.length(); i++) {
 					if(word.charAt(i) == c)
 						guess = guess.substring(0, i) + c + guess.substring(i + 1);
@@ -82,12 +82,11 @@ public class Hangman extends ConsoleProgram {
 		}
 		
 		if(lives == 0) {
-			System.out.println("You're completely hung.\nThe word was: " + word + "\nYou lose.");;
+			println("You're completely hung.\nThe word was: " + word + "\nYou lose.");;
 		}
 		else {
-			System.out.println("That guess is correct.");
-			System.out.println("You guessed the word: " + word);
-			System.out.println("You win.");
+			println("You guessed the word: " + word);
+			println("You win.");
 		}
 	}
 

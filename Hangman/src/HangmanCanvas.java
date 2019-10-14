@@ -9,7 +9,7 @@ public class HangmanCanvas extends GCanvas {
 	
 	// create scaffold
 	GLine create_scaffold() {
-	    GLine line = new GLine(100, 100, 100, SCAFFOLD_HEIGHT);
+	    GLine line = new GLine(100, 100, 100, SCAFFOLD_HEIGHT + 100);
 //	    line.move(x, y);
 	    return line;
 	}
@@ -22,8 +22,57 @@ public class HangmanCanvas extends GCanvas {
 	
 	// create rope
 	GLine create_rope() {
-	    GLine line = new GLine(172, 100, 172, 100 + ROPE_LENGTH);
+	    GLine line = new GLine(100 + BEAM_LENGTH, 100, 100 + BEAM_LENGTH, 100 + ROPE_LENGTH);
 	    return line;
+	}
+	
+	// create head
+	GOval create_head() {
+		GOval circle = new GOval(100 + BEAM_LENGTH - HEAD_RADIUS, 100 + ROPE_LENGTH, HEAD_RADIUS * 2, HEAD_RADIUS * 2);
+		return circle;
+	}
+	
+	// create body
+	GLine create_body() {
+		GLine line = new GLine(100 + BEAM_LENGTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS, 100 + BEAM_LENGTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + BODY_LENGTH);
+		return line;
+	}
+	
+	// create left hand
+	void create_lefthand() {
+		GLine upper = new GLine(100 + BEAM_LENGTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + ARM_OFFSET_FROM_HEAD, 100 + BEAM_LENGTH - UPPER_ARM_LENGTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + ARM_OFFSET_FROM_HEAD);
+		GLine lower = new GLine(100 + BEAM_LENGTH - UPPER_ARM_LENGTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + ARM_OFFSET_FROM_HEAD, 100 + BEAM_LENGTH - UPPER_ARM_LENGTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + ARM_OFFSET_FROM_HEAD + LOWER_ARM_LENGTH);
+		this.add(lower);
+		this.add(upper);
+	}
+	
+	// create right hand
+	void create_righthand() {
+		GLine upper = new GLine(100 + BEAM_LENGTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + ARM_OFFSET_FROM_HEAD, 100 + BEAM_LENGTH + UPPER_ARM_LENGTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + ARM_OFFSET_FROM_HEAD);
+		GLine lower = new GLine(100 + BEAM_LENGTH + UPPER_ARM_LENGTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + ARM_OFFSET_FROM_HEAD, 100 + BEAM_LENGTH + UPPER_ARM_LENGTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + ARM_OFFSET_FROM_HEAD + LOWER_ARM_LENGTH);
+		this.add(lower);
+		this.add(upper);
+	}
+	
+	// create left leg
+	void create_leftleg() {
+		GLine upper = new GLine(100 + BEAM_LENGTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + BODY_LENGTH, 100 + BEAM_LENGTH - HIP_WIDTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + BODY_LENGTH);
+		GLine lower = new GLine(100 + BEAM_LENGTH - HIP_WIDTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + BODY_LENGTH, 100 + BEAM_LENGTH - HIP_WIDTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH);
+		this.add(upper);
+		this.add(lower);
+	}
+	
+	// create right leg
+	void create_rightleg() {
+		GLine upper = new GLine(100 + BEAM_LENGTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + BODY_LENGTH, 100 + BEAM_LENGTH + HIP_WIDTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + BODY_LENGTH);
+		GLine lower = new GLine(100 + BEAM_LENGTH + HIP_WIDTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + BODY_LENGTH, 100 + BEAM_LENGTH + HIP_WIDTH, 100 + ROPE_LENGTH + 2*HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH);
+		this.add(upper);
+		this.add(lower);
+	}
+	
+	// create left feet
+	void create_leftfeet() {
+//		GLine line = new GLine();
 	}
 	
 	/** Resets the display so that only the scaffold appears */
@@ -33,6 +82,12 @@ public class HangmanCanvas extends GCanvas {
 		this.add(create_scaffold());
 		this.add(create_beam());
 		this.add(create_rope());
+		this.add(create_head());
+		this.add(create_body());
+		create_lefthand();
+		create_righthand();
+		create_leftleg();
+		create_rightleg();
 	}
 	
 	/**
@@ -53,6 +108,7 @@ public class HangmanCanvas extends GCanvas {
 	public void noteIncorrectGuess(char letter) {
 		/* You fill this in */
 	}
+	
 	/* Constants for the simple version of the picture (in pixels) */
 	private static final int SCAFFOLD_HEIGHT = 360;
 	private static final int BEAM_LENGTH = 144;
