@@ -71,6 +71,7 @@ public class Hangman extends ConsoleProgram {
 			if(word.indexOf(c) == -1) {
 				println("There is no " + c + "'s in the word.");
 				lives--;
+				this.canvas.noteIncorrectGuess(lives);
 			}
 			else {
 				println("That guess is correct.");
