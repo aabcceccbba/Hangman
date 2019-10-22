@@ -11,6 +11,9 @@ import acm.graphics.GOval;
 
 public class HangmanCanvas extends GCanvas {
 	
+	Label update_word = new Label();
+	Label process = new Label();
+	
 	// create reset
 	void create_reset() {
 	    GLine scaffold = new GLine(100, 100, 100, SCAFFOLD_HEIGHT + 100);
@@ -91,7 +94,9 @@ public class HangmanCanvas extends GCanvas {
  	*/
 	public void displayWord(String word) {
 		/* You fill this in */
-		Label update_word = new Label(word);
+		this.remove(update_word);
+		update_word = new Label(word);
+//		this.update_word.setText(word);
 		this.add(update_word);
 //		this.print(word);
 	}
@@ -102,7 +107,7 @@ public class HangmanCanvas extends GCanvas {
 	 * on the scaffold and adds the letter to the list of incorrect
 	 * guesses that appears at the bottom of the window.
 	 */
-	public void noteIncorrectGuess(int lives) {
+	public void noteIncorrectGuess(int lives, char c) {
 		/* You fill this in */
 		switch(lives) {
 		case 7: this.create_head(); break;
@@ -115,6 +120,13 @@ public class HangmanCanvas extends GCanvas {
 		case 0: this.create_rightfoot(); break;
 		default: System.out.println("something wrong with lives");
 		}
+		
+		String wrong = process.getText() + c;
+		System.out.println(wrong);
+		this.remove(process);
+		process.setText(wrong);
+		this.add(process, 0, 20);
+//		System.out.println(wrong);
 	}
 	
 	/* Constants for the simple version of the picture (in pixels) */

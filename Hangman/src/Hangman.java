@@ -51,16 +51,13 @@ public class Hangman extends ConsoleProgram {
 		System.out.println("Welcome to Hangman!");
 		this.println("Welcome to Hangman!");
 		while(lives > 0 && !guess.equals(word)) {
-//			System.out.println("The word now looks like this: " + guess);
 			println("The word now looks like this: " + guess);
-//			System.out.println("You have " + lives + " guesses left.");
+			this.canvas.displayWord(guess);
 			println("You have " + lives + " guesses left.");
-//			System.out.println("Your guess: ");
 			println("Your guess: ");
 //			Scanner scan = new Scanner(System.in);
 //			String letter = scan.next().trim();
 			String letter = readLine("");
-//			println("letter is: " + letter);
 			// while the input is not a single char
 			while(letter.length() != 1 || !Character.isLetter(letter.charAt(0))) {
 				println("You could only input one single letter for each time! Try again:");
@@ -71,13 +68,14 @@ public class Hangman extends ConsoleProgram {
 			if(word.indexOf(c) == -1) {
 				println("There is no " + c + "'s in the word.");
 				lives--;
-				this.canvas.noteIncorrectGuess(lives);
+				this.canvas.noteIncorrectGuess(lives, c);
 			}
 			else {
 				println("That guess is correct.");
 				for(int i = 0; i < word.length(); i++) {
-					if(word.charAt(i) == c)
+					if(word.charAt(i) == c) {
 						guess = guess.substring(0, i) + c + guess.substring(i + 1);
+					}
 				}
 			}
 		}
@@ -86,21 +84,16 @@ public class Hangman extends ConsoleProgram {
 			println("You're completely hung.\nThe word was: " + word + "\nYou lose.");;
 		}
 		else {
+			this.canvas.displayWord(guess);
 			println("You guessed the word: " + word);
 			println("You win.");
 		}
 	}
 
 	public static void main(String[] args) {
-//		JFrame frame = new JFrame("IOConsole");
-//		IOConsole console = new IOConsole();
-//	    frame.getContentPane().add(BorderLayout.CENTER, console);
-//	    frame.setSize(500, 300);
-//	    frame.show();
-//		test(console);
+
 		Hangman hm = new Hangman();
-		hm.init();
-		
+		hm.init();	
 		hm.run();
 	}
 }
