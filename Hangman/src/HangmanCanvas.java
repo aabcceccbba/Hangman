@@ -96,9 +96,7 @@ public class HangmanCanvas extends GCanvas {
 		/* You fill this in */
 		this.remove(update_word);
 		update_word = new Label(word);
-//		this.update_word.setText(word);
 		this.add(update_word);
-//		this.print(word);
 	}
 	
 	/**
@@ -122,11 +120,9 @@ public class HangmanCanvas extends GCanvas {
 		}
 		
 		String wrong = process.getText() + c;
-		System.out.println(wrong);
 		this.remove(process);
-		process.setText(wrong);
+		process = new Label(wrong);
 		this.add(process, 0, 20);
-//		System.out.println(wrong);
 	}
 	
 	/* Constants for the simple version of the picture (in pixels) */
